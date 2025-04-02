@@ -569,15 +569,6 @@ export default {
 
             return;
           }
-
-          if (
-            !this.detail.currentCity.twelveMonthMoney &&
-            this.detail.currentCity.twelveMonthMoney != 0
-          ) {
-            this.$message.error(`请设置12个月后二手车估价`);
-
-            return;
-          }
         }
 
         ++this.activeStep;
