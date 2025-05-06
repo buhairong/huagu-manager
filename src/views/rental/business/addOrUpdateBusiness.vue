@@ -69,6 +69,23 @@
             </div>
           </el-form-item>
 
+          <el-form-item label="上传背景图片" prop="backImage">
+            <el-upload
+              :action="UPLOAD_URL"
+              :show-file-list="false"
+              :accept="IMG_ACCEPT"
+              :before-upload="beforeImgUpload"
+              :on-success="handleSuccessBackImage"
+            >
+              <img
+                v-if="detail.backImage"
+                :src="detail.backImage"
+                style="width: 100%"
+              />
+              <i v-else class="el-icon-plus"></i>
+            </el-upload>
+          </el-form-item>
+
           <el-form-item label="活动场地介绍" prop="introduction">
             <c-text-area
               :inputValue.sync="detail.introduction"
@@ -93,6 +110,7 @@
                 </div>
               </div>
               <el-upload
+                class="image-list-upload"
                 multiple
                 :action="UPLOAD_URL"
                 :show-file-list="false"
@@ -145,6 +163,7 @@ export default {
         siteName: "",
         address: "",
         money: undefined,
+        backImage: "",
         introduction: "",
         imageList: [],
       },
@@ -181,6 +200,13 @@ export default {
           {
             required: true,
             message: "请输入活动价格",
+            trigger: "blur",
+          },
+        ],
+        backImage: [
+          {
+            required: true,
+            message: "请上传背景图片",
             trigger: "blur",
           },
         ],
@@ -250,6 +276,12 @@ export default {
       return true;
     },
 
+    handleSuccessBackImage(res) {
+      if (res.code == 0) {
+        this.detail.backImage = res.data.src;
+      }
+    },
+
     handleSuccess(res) {
       if (res.code == 0) {
         this.detail.imageList.push(res.data.src);
@@ -307,26 +339,28 @@ export default {
   }
 }
 
-::v-deep .el-upload {
-  border: none;
-  width: 200px;
-  height: 200px;
-}
+.image-list-upload {
+  ::v-deep .el-upload {
+    border: none;
+    width: 200px;
+    height: 200px;
+  }
 
-.upload {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(10, 15, 45, 0.7);
-  border-radius: 6px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  .upload-tip {
-    margin-top: 12px;
-    font-family: PingFang SC;
-    font-size: 14px;
-    color: #ffffff;
+  .upload {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 15, 45, 0.7);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .upload-tip {
+      margin-top: 12px;
+      font-family: PingFang SC;
+      font-size: 14px;
+      color: #ffffff;
+    }
   }
 }
 </style>

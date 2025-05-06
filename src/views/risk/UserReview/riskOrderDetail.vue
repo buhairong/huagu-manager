@@ -247,19 +247,11 @@
                 </button>
               </div>
               <div class="btn-group" v-else-if="businessType == 2">
-                <button
-                  class="page-btn"
-                  :disabled="rentalDisabled"
-                  @click="openRentalPassDialog"
-                >
+                <button class="page-btn" @click="openRentalPassDialog">
                   审核通过
                 </button>
                 <!-- <button class="page-btn" @click="openAddMoneyDialog">加收押金</button> -->
-                <button
-                  class="page-btn"
-                  :disabled="rentalDisabled"
-                  @click="openRentalRefuseDialog"
-                >
+                <button class="page-btn" @click="openRentalRefuseDialog">
                   审核不通过
                 </button>
               </div>
@@ -751,9 +743,9 @@ export default {
 
   methods: {
     initQuery() {
+      this.certificationConfigList();
       if (this.businessType == 1) {
         this.selectRiskOrderDetail();
-        this.certificationConfigList();
       } else if (this.businessType == 2) {
         this.selectCarRentalRiskOrderDetail();
       }

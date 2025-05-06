@@ -39,6 +39,13 @@
             }}
           </el-form-item>
 
+          <el-form-item label="背景图片" prop="backImage">
+            <el-image
+              :src="detail.backImage"
+              :preview-src-list="[detail.backImage]"
+            ></el-image>
+          </el-form-item>
+
           <el-form-item label="活动场地介绍" prop="introduction">
             {{ detail.introduction }}
           </el-form-item>
@@ -128,6 +135,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.el-image {
+  width: 200px;
+}
 .img-wrap {
   display: flex;
   flex-wrap: wrap;

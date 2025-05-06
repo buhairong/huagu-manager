@@ -80,8 +80,14 @@
                   :class="{ 'active-city-tag': item.id == detail.id }"
                   @click="handleChangeDetail(item)"
                 >
-                  <div v-if="item.monthTotal === 12 && item.paymentType === 0">12期订阅（一次性付）</div>
-                  <div v-else-if="item.monthTotal === 6 && item.paymentType === 4">12期订阅（半年付）</div>
+                  <div v-if="item.monthTotal === 12 && item.paymentType === 0">
+                    12期订阅（两月一付）
+                  </div>
+                  <div
+                    v-else-if="item.monthTotal === 6 && item.paymentType === 4"
+                  >
+                    12期订阅（半年付）
+                  </div>
                   <div v-else>6期订阅（一次性付）</div>
                 </div>
               </div>
@@ -116,17 +122,23 @@
 
           <div class="item" v-if="type == 1">
             <div class="item-title">车商收购价:</div>
-            <div class="item-content">{{ formatThousandNumber(detail.purchasingPrice) }}元</div>
+            <div class="item-content">
+              {{ formatThousandNumber(detail.purchasingPrice) }}元
+            </div>
           </div>
 
           <div class="item" v-if="type == 1">
             <div class="item-title">个人成交价:</div>
-            <div class="item-content">{{ formatThousandNumber(detail.transactionPrice) }}元</div>
+            <div class="item-content">
+              {{ formatThousandNumber(detail.transactionPrice) }}元
+            </div>
           </div>
 
           <div class="item">
             <div class="item-title">12个月后二手车估价:</div>
-            <div class="item-content">{{ formatThousandNumber(detail.twelveMonthMoney) }}元</div>
+            <div class="item-content">
+              {{ formatThousandNumber(detail.twelveMonthMoney) }}元
+            </div>
           </div>
 
           <div class="item" v-if="type == 1">
@@ -219,8 +231,8 @@
 import {
   selectNewCarSubscribeDetail,
   selectCarSubscribeDetail,
-} from "@/api/subscribe/subscribe"
-import { formatThousandNumber } from "@/utils/util"
+} from "@/api/subscribe/subscribe";
+import { formatThousandNumber } from "@/utils/util";
 
 export default {
   name: "subscribeDetail",
@@ -238,18 +250,18 @@ export default {
         0: "买断车辆",
         1: "退回车辆",
       },
-    }
+    };
   },
 
   mounted() {
-    this.subscribeId = this.$route.query.subscribeId
-    this.carTypeYearProductId = this.$route.query.carTypeYearProductId
-    this.type = this.$route.query.type
+    this.subscribeId = this.$route.query.subscribeId;
+    this.carTypeYearProductId = this.$route.query.carTypeYearProductId;
+    this.type = this.$route.query.type;
 
     if (this.type == 1) {
-      this.selectNewCarSubscribeDetail()
+      this.selectNewCarSubscribeDetail();
     } else {
-      this.selectCarSubscribeDetail()
+      this.selectCarSubscribeDetail();
     }
   },
 
@@ -266,20 +278,20 @@ export default {
               detail.safeguardServices = detail.safeguardServices.map(
                 (item) => {
                   if (item === 0) {
-                    item = "24小时道路救援"
+                    item = "24小时道路救援";
                   } else {
-                    item = "免费送车上门"
+                    item = "免费送车上门";
                   }
 
-                  return item
+                  return item;
                 }
-              )
-            })
-          })
-          this.detailArr = res.data
-          this.detailList = res.data[0].detailList
+              );
+            });
+          });
+          this.detailArr = res.data;
+          this.detailList = res.data[0].detailList;
 
-          this.detail = res.data[0].detailList[0]
+          this.detail = res.data[0].detailList[0];
         }
       });
     },
@@ -291,39 +303,38 @@ export default {
 
       selectCarSubscribeDetail(data).then((res) => {
         if (res.code === 0) {
-          res.data[0].detailList[0].safeguardServices = res.data[0].detailList[0].safeguardServices.map(
-            (item) => {
+          res.data[0].detailList[0].safeguardServices =
+            res.data[0].detailList[0].safeguardServices.map((item) => {
               if (item === 0) {
-                item = "24小时道路救援"
+                item = "24小时道路救援";
               } else {
-                item = "免费送车上门"
+                item = "免费送车上门";
               }
 
               return item;
-            }
-          );
-          this.detail = res.data[0].detailList[0]
+            });
+          this.detail = res.data[0].detailList[0];
         }
-      })
+      });
     },
 
     formatThousandNumber(num) {
       if (num || num == 0) {
-        return formatThousandNumber(num)
+        return formatThousandNumber(num);
       }
-      return 0
+      return 0;
     },
 
     handleChangeCityTag(city) {
       this.detailList = city.detailList;
-      this.detail = city.detailList[0]
+      this.detail = city.detailList[0];
     },
 
     handleChangeDetail(item) {
-      this.detail = item
+      this.detail = item;
     },
   },
-}
+};
 </script>
 
 <style lang="less" scoped>

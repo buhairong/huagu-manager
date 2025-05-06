@@ -993,7 +993,6 @@ export const EDUCATION_STATUS = {
 export const BUSINESS_ACTIVITY_LIST = [
   { value: 1, label: "高尔夫" },
   { value: 2, label: "餐饮" },
-  { value: 3, label: "会议" },
   { value: 4, label: "娱乐" },
 ];
 
